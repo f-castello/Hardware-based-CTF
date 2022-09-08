@@ -1,0 +1,130 @@
+
+<!-- saved from url=(0148)file:///D:/PoliTo/Magistrale/LM%20Secondo%20Anno/2%20Cybersecurity%20for%20Embedded%20Systems/2022/GitHub/Hardware-based-CTF/PYNQ/DeleteMe/test.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <!-- <script src="./run_prettify.js?skin=desert"></script>
+    <script src="./vhdl_ext.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="./BlockCipher_files/desert.css">
+
+
+
+    
+        </head><body><pre class="prettyprint lang-vhdl prettyprinted" style=""><span class="pln">LIBRARY IEEE</span><span class="pun">;</span><span class="pln">
+USE IEEE</span><span class="pun">.</span><span class="pln">std_logic_1164</span><span class="pun">.</span><span class="pln">ALL</span><span class="pun">;</span><span class="pln">
+
+ENTITY </span><span class="typ">BlockCipher</span><span class="pln"> IS
+    PORT
+    </span><span class="pun">(</span><span class="pln">
+        ALFSR_PARALLEL_IN  </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC_VECTOR</span><span class="pun">(</span><span class="lit">255</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+        LFSR_SERIAL_IN     </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC</span><span class="pun">;</span><span class="pln">
+        SEQUENTIAL_ENABLE  </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC</span><span class="pun">;</span><span class="pln">
+        CLOCK              </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC</span><span class="pun">;</span><span class="pln">
+        RESET              </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC</span><span class="pun">;</span><span class="pln">
+        LOAD_0             </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC</span><span class="pun">;</span><span class="pln">
+        LOAD_A             </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC</span><span class="pun">;</span><span class="pln">
+        LFSR_DEBUG_OUT     </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC</span><span class="pun">;</span><span class="pln">
+        ALFSR_DEBUG_OUT    </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC</span><span class="pun">;</span><span class="pln">
+        FA_DEBUG_OUT       </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC</span><span class="pun">;</span><span class="pln">
+        EDGE_DEBUG_OUT     </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC</span><span class="pun">;</span><span class="pln">
+        NET_DEBUG_OUT      </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC</span><span class="pun">;</span><span class="pln">
+        RESULTS_SERIAL_OUT </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC</span><span class="pun">;</span><span class="pln">
+        VALID_DATA         </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC
+    </span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">END</span><span class="pln"> </span><span class="typ">BlockCipher</span><span class="pun">;</span><span class="pln">
+
+ARCHITECTURE behavioral OF </span><span class="typ">BlockCipher</span><span class="pln"> IS
+    COMPONENT LFSR
+        PORT
+        </span><span class="pun">(</span><span class="pln">
+            S_in</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Clk</span><span class="pun">,</span><span class="pln"> </span><span class="typ">En</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Rst</span><span class="pun">,</span><span class="pln"> S_Load</span><span class="pun">,</span><span class="pln"> P_Load</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Count</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Fb_in</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC</span><span class="pun">;</span><span class="pln">
+            P_in                                             </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC_VECTOR</span><span class="pun">(</span><span class="lit">255</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+            P_out                                            </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC_VECTOR</span><span class="pun">(</span><span class="lit">255</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+            S_out</span><span class="pun">,</span><span class="pln"> A_out</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Valid</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Fb_out</span><span class="pln">                      </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC
+        </span><span class="pun">);</span><span class="pln">
+    </span><span class="kwd">END</span><span class="pln"> COMPONENT</span><span class="pun">;</span><span class="pln">
+    COMPONENT ALFSR
+        PORT
+        </span><span class="pun">(</span><span class="pln">
+            P_in               </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC_VECTOR</span><span class="pun">(</span><span class="lit">255</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+            </span><span class="typ">Clk</span><span class="pun">,</span><span class="pln"> </span><span class="typ">En</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Rst</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Load</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC</span><span class="pun">;</span><span class="pln">
+            S_out</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Valid</span><span class="pln">       </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC
+        </span><span class="pun">);</span><span class="pln">
+    </span><span class="kwd">END</span><span class="pln"> COMPONENT</span><span class="pun">;</span><span class="pln">
+    COMPONENT FA
+        PORT
+        </span><span class="pun">(</span><span class="pln">
+            A</span><span class="pun">,</span><span class="pln"> B</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Cin</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC</span><span class="pun">;</span><span class="pln">
+            S</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Cout</span><span class="pln">   </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC
+        </span><span class="pun">);</span><span class="pln">
+    </span><span class="kwd">END</span><span class="pln"> COMPONENT</span><span class="pun">;</span><span class="pln">
+    COMPONENT EDGE
+        PORT
+        </span><span class="pun">(</span><span class="pln">
+            </span><span class="typ">Fb_in</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Val_in</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Clk</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Rst</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC</span><span class="pun">;</span><span class="pln">
+            </span><span class="typ">Ctrl_out</span><span class="pln">                </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC
+        </span><span class="pun">);</span><span class="pln">
+    </span><span class="kwd">END</span><span class="pln"> COMPONENT</span><span class="pun">;</span><span class="pln">
+    COMPONENT NET
+        PORT
+        </span><span class="pun">(</span><span class="pln">
+            </span><span class="typ">Chain_in</span><span class="pln">              </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC_VECTOR</span><span class="pun">(</span><span class="lit">255</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+            </span><span class="typ">Ctrl_in</span><span class="pln">               </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC_VECTOR</span><span class="pun">(</span><span class="lit">2</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+            R_in                  </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC</span><span class="pun">;</span><span class="pln">
+            R_out</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Fb_out</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Op_out</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC
+        </span><span class="pun">);</span><span class="pln">
+    </span><span class="kwd">END</span><span class="pln"> COMPONENT</span><span class="pun">;</span><span class="pln">
+
+    SIGNAL cin</span><span class="pun">,</span><span class="pln"> cout</span><span class="pun">,</span><span class="pln"> count_0</span><span class="pun">,</span><span class="pln"> out_0</span><span class="pun">,</span><span class="pln"> out_1</span><span class="pun">,</span><span class="pln"> out_a</span><span class="pun">,</span><span class="pln"> ack_0</span><span class="pun">,</span><span class="pln"> ack_a</span><span class="pun">,</span><span class="pln"> ack_out</span><span class="pun">,</span><span class="pln"> fb_0</span><span class="pun">,</span><span class="pln"> fb_a</span><span class="pun">,</span><span class="pln"> ed_out</span><span class="pun">,</span><span class="pln"> rin</span><span class="pun">,</span><span class="pln"> rout</span><span class="pun">,</span><span class="pln"> nt_out</span><span class="pun">,</span><span class="pln"> sum </span><span class="pun">:</span><span class="pln"> STD_LOGIC</span><span class="pun">;</span><span class="pln">
+
+    SIGNAL seq  </span><span class="pun">:</span><span class="pln"> STD_LOGIC_VECTOR</span><span class="pun">(</span><span class="lit">255</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+    SIGNAL ctrl </span><span class="pun">:</span><span class="pln"> STD_LOGIC_VECTOR</span><span class="pun">(</span><span class="lit">2</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+
+</span><span class="kwd">BEGIN</span><span class="pln">
+    LFSR_COMP </span><span class="pun">:</span><span class="pln"> LFSR PORT MAP
+        </span><span class="pun">(</span><span class="pln">LFSR_SERIAL_IN</span><span class="pun">,</span><span class="pln"> CLOCK</span><span class="pun">,</span><span class="pln"> SEQUENTIAL_ENABLE</span><span class="pun">,</span><span class="pln"> RESET</span><span class="pun">,</span><span class="pln"> LOAD_0</span><span class="pun">,</span><span class="pln"> LOAD_A</span><span class="pun">,</span><span class="pln"> count_0</span><span class="pun">,</span><span class="pln"> fb_a</span><span class="pun">,</span><span class="pln"> ALFSR_PARALLEL_IN</span><span class="pun">,</span><span class="pln"> seq</span><span class="pun">,</span><span class="pln"> out_0</span><span class="pun">,</span><span class="pln"> out_1</span><span class="pun">,</span><span class="pln"> ack_0</span><span class="pun">,</span><span class="pln"> fb_0</span><span class="pun">);</span><span class="pln">
+    ALFSR_COMP </span><span class="pun">:</span><span class="pln"> ALFSR PORT
+    MAP </span><span class="pun">(</span><span class="pln">ALFSR_PARALLEL_IN</span><span class="pun">,</span><span class="pln"> CLOCK</span><span class="pun">,</span><span class="pln"> SEQUENTIAL_ENABLE</span><span class="pun">,</span><span class="pln"> RESET</span><span class="pun">,</span><span class="pln"> LOAD_A</span><span class="pun">,</span><span class="pln"> out_a</span><span class="pun">,</span><span class="pln"> ack_a</span><span class="pun">);</span><span class="pln">
+    FA_COMP </span><span class="pun">:</span><span class="pln"> FA PORT
+    MAP </span><span class="pun">(</span><span class="pln">nt_out</span><span class="pun">,</span><span class="pln"> out_a</span><span class="pun">,</span><span class="pln"> cin</span><span class="pun">,</span><span class="pln"> sum</span><span class="pun">,</span><span class="pln"> cout</span><span class="pun">);</span><span class="pln">
+    EDGE_COMP </span><span class="pun">:</span><span class="pln"> EDGE PORT
+    MAP </span><span class="pun">(</span><span class="pln">fb_0</span><span class="pun">,</span><span class="pln"> ack_out</span><span class="pun">,</span><span class="pln"> CLOCK</span><span class="pun">,</span><span class="pln"> RESET</span><span class="pun">,</span><span class="pln"> ed_out</span><span class="pun">);</span><span class="pln">
+    NET_COMP </span><span class="pun">:</span><span class="pln"> NET PORT
+    MAP </span><span class="pun">(</span><span class="pln">seq</span><span class="pun">,</span><span class="pln"> ctrl</span><span class="pun">,</span><span class="pln"> rin</span><span class="pun">,</span><span class="pln"> rout</span><span class="pun">,</span><span class="pln"> fb_a</span><span class="pun">,</span><span class="pln"> nt_out</span><span class="pun">);</span><span class="pln">
+
+    PROCESS </span><span class="pun">(</span><span class="pln">CLOCK</span><span class="pun">)</span><span class="pln">
+    </span><span class="kwd">BEGIN</span><span class="pln">
+        IF RISING_EDGE</span><span class="pun">(</span><span class="pln">CLOCK</span><span class="pun">)</span><span class="pln"> THEN
+            IF </span><span class="pun">(</span><span class="pln">RESET </span><span class="pun">=</span><span class="pln"> </span><span class="str">'1'</span><span class="pun">)</span><span class="pln"> THEN
+                cin                </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">;</span><span class="pln">
+                rin                </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">;</span><span class="pln">
+                VALID_DATA         </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">;</span><span class="pln">
+                RESULTS_SERIAL_OUT </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">;</span><span class="pln">
+                LFSR_DEBUG_OUT     </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">;</span><span class="pln">
+                ALFSR_DEBUG_OUT    </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">;</span><span class="pln">
+                FA_DEBUG_OUT       </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">;</span><span class="pln">
+                EDGE_DEBUG_OUT     </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">;</span><span class="pln">
+                NET_DEBUG_OUT      </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">;</span><span class="pln">
+            ELSIF </span><span class="pun">(</span><span class="pln">SEQUENTIAL_ENABLE </span><span class="pun">=</span><span class="pln"> </span><span class="str">'1'</span><span class="pun">)</span><span class="pln"> THEN
+                cin        </span><span class="pun">&lt;=</span><span class="pln"> cout</span><span class="pun">;</span><span class="pln">
+                rin        </span><span class="pun">&lt;=</span><span class="pln"> rout</span><span class="pun">;</span><span class="pln">
+                VALID_DATA </span><span class="pun">&lt;=</span><span class="pln"> ack_out</span><span class="pun">;</span><span class="pln">
+                IF </span><span class="pun">(</span><span class="pln">ack_out </span><span class="pun">=</span><span class="pln"> </span><span class="str">'1'</span><span class="pun">)</span><span class="pln"> THEN
+                    RESULTS_SERIAL_OUT </span><span class="pun">&lt;=</span><span class="pln"> sum</span><span class="pun">;</span><span class="pln">
+                    LFSR_DEBUG_OUT     </span><span class="pun">&lt;=</span><span class="pln"> out_0</span><span class="pun">;</span><span class="pln">
+                    ALFSR_DEBUG_OUT    </span><span class="pun">&lt;=</span><span class="pln"> out_a</span><span class="pun">;</span><span class="pln">
+                    FA_DEBUG_OUT       </span><span class="pun">&lt;=</span><span class="pln"> sum</span><span class="pun">;</span><span class="pln">
+                    EDGE_DEBUG_OUT     </span><span class="pun">&lt;=</span><span class="pln"> ed_out</span><span class="pun">;</span><span class="pln">
+                    NET_DEBUG_OUT      </span><span class="pun">&lt;=</span><span class="pln"> nt_out</span><span class="pun">;</span><span class="pln">
+                </span><span class="kwd">END</span><span class="pln"> IF</span><span class="pun">;</span><span class="pln">
+            </span><span class="kwd">END</span><span class="pln"> IF</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">END</span><span class="pln"> IF</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">END</span><span class="pln"> PROCESS</span><span class="pun">;</span><span class="pln">
+
+    ctrl </span><span class="pun">&lt;=</span><span class="pln"> out_0 </span><span class="pun">&amp;</span><span class="pln"> ed_out </span><span class="pun">&amp;</span><span class="pln"> out_1</span><span class="pun">;</span><span class="pln">
+
+    ack_out </span><span class="pun">&lt;=</span><span class="pln"> ack_0 AND ack_a</span><span class="pun">;</span><span class="pln">
+    count_0 </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="str">'1'</span><span class="pln"> WHEN ack_0 </span><span class="pun">=</span><span class="pln"> </span><span class="str">'0'</span><span class="pln"> ELSE
+        </span><span class="str">'0'</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">END</span><span class="pln"> behavioral</span><span class="pun">;</span><span class="pln">
+    </span></pre>
+
+</body></html>

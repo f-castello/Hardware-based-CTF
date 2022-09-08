@@ -1,0 +1,7 @@
+\chapter{Conclusions}
+\label{Chapter6}
+As a recap, the most interesting characteristic of this project is for sure its heterogeneity in terms of levels of abstraction in which it operates: starting from the lowest layer, the logic design is implemented onto the FPGA, which in turn communicates with the Python code running inside the MCU of the board.
+This way, the main methods are exposed online as APIs to be called via HTTP requests, and a web application made of HTML/CSS/JavaScritpt code performs the final processing over the transmitted data in order to make it human-readable.
+
+This CTF challenge requires the use of a real microcontroller system, and involves the knowledge of many programming (and design) languages, in such a way that a whole chain of hardware and software modules need to collaborate in an organic way.
+The result is ultimately represented by a kind of ``pipe'' that conveys information from the simplest electronic elements on a remote fixed location, all the way to the screen of the end-user: wherever they are, and whatever device, browser or internet connectivity they might be using.

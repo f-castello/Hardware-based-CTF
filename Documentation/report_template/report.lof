@@ -1,0 +1,23 @@
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces High-level schematic of the design.\relax }}{5}{figure.caption.5}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces A PYNQ-Z1 Python Productivity board.\relax }}{5}{figure.caption.6}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Noteworthy portion of the LFSR.\relax }}{7}{figure.caption.7}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Schematic of the ALFSR.\relax }}{8}{figure.caption.8}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Schematic of the fulladder.\relax }}{9}{figure.caption.9}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Schematic of the enabler.\relax }}{10}{figure.caption.10}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Schematic of the combinational network.\relax }}{11}{figure.caption.11}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Entire schematic of the Block Cipher, showing the internal connections between all its fundamental components.\relax }}{12}{figure.caption.12}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Schematic of a Zynq SoC.\relax }}{14}{figure.caption.14}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Homescreen of the challenge, zoomed out in order to display all the described elements.\relax }}{16}{figure.caption.15}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Example of failed parsing rules in the input form: the `Send' button is disabled.\relax }}{17}{figure.caption.16}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Successful request + response (including contest victory).\relax }}{18}{figure.caption.17}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Preview page of the combinational network.\relax }}{19}{figure.caption.18}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Simulation of the vulnerability being triggered.\relax }}{20}{figure.caption.19}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

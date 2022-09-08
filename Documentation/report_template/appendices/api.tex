@@ -1,0 +1,30 @@
+\chapter{API}
+\label{api}
+This CTF challenge can be easily integrated inside external platforms by querying
+\begin{verbatim}130.192.93.82:8080/chipe2\end{verbatim}
+with a POST HTTP request, sending as body a \emph{single line string} representing a JSON that would contain the following concatenated keys:
+\begin{itemize}
+\item \textbf{seed}: the seed of the ALFSR
+\item \textbf{seedFormat}: the format of the seed (``BIN'' or ``HEX'')
+\item \textbf{message}: the plaintext to be encoded
+\item \textbf{messageFormat}: the format of the message (``BIN'' or ``HEX'').
+\end{itemize}
+Please adhere to the following randomized example: 
+\begin{verbatim}
+{"seed":"A5AB23178ACAE61268591959195ACAC412412091029301293B12094923587128","seedForm
+at":"HEX","message":"A5AB23178ACAE61268591959195ACAC412412091029301293B1209492358712
+8","messageFormat":"HEX"}
+\end{verbatim}
+of course, changing values and encodings according to the specific use case (and again, be careful when copy-pasting directly from here). 
+
+The response will include again one single string formatted with the same principle as before, only this time featuring:
+\begin{itemize}
+\item \textbf{output\_CP}, enclosing the chipertext
+\item \textbf{output\_LFSR}, enclosing the output of the LFSR
+\item \textbf{output\_ALFSR}, enclosing the output of the ALFSR
+\item \textbf{output\_EDGE}, enclosing the output of the enabler
+\item \textbf{output\_NET}, enclosing the output of the combinational network
+\item \textbf{output\_FA}, enclosing the output of the fulladder.
+\end{itemize}
+
+As a final note, remember to perform the parsing of the input fields \emph{before} calling this API, as the latter doesn't perform any check on the information that's being handled (i.e. the length of the seed and the plaintext, their format and the possibility of indefinitely falling into the ``absorbing'' state of both PRNGs).

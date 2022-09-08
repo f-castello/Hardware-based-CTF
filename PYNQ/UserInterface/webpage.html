@@ -1,0 +1,589 @@
+<html>
+
+<head>
+    <title>CTF Challenge</title>
+    <meta charset="utf-8">
+    <link href="/public/style.css" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/png" href="/icons/webpage_icon/favicon.ico">
+    <script src="./js/popper.min.js"></script>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <link href="./icons/bootstrap-icons.css" rel="stylesheet">
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=desert"></script>
+</head>
+
+<body onload="initPage()">
+    <!-- Header and Title -->
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center py-2 bg-success text-white">
+            <div class="col-12">
+                <img src="src/cyberchallenge2.svg#svgView(viewBox(0, 0, 110, 110))"
+                    class="map float-start me-1 text-light" fill="currentColor" height="27" width="27">
+                <h5>Cybersecurity for Embedded Systems (A.Y. 2021/2022)</h5>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center py-3 text-center">
+            <div class="col-12">
+                <h2>CTF Challenge: Block Cipher</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center">
+            <div class="col-7">
+                <div class="bg-light rounded border">
+                    <div class="row d-flex justify-content-center text-center pt-2">
+                        <h5>A brief background</h5>
+                    </div>
+                    <div class="row d-flex justify-content-center mx-2 px-3">
+                        <p class="text-justify">
+                            Your company's newest product is finally complete, and it's almost ready to enter the
+                            market.
+                            Validation engineers are working hard to stress test the design…
+                            but there seems to be quite an issue: although the outputs
+                            act as expected, some internal signals are behaving in a strange way!
+                            Is there something that hasn't
+                            been accounted for?
+                            <br>
+                            To add insult to injury, the lead designer of the product has already left the company
+                            and
+                            has made sure to take all his notes and references of the current implementation with
+                            him.
+                            It's now up to you to find out what's really going on inside the design and to document your
+                            findings.
+                            <br><br>
+                            <u>Carefully analyze the source files of the product and
+                                test the logic implemented on the remote board to solve the mistery.</u>
+                        </p>
+                    </div>
+                </div>
+                <br>
+                <div class="container list-group-item-success rounded border">
+                    <div class="row d-flex justify-content-center mx-2 px-1 pt-3 ">
+                        <p class="text-justify">
+                            Please note that 'Seed' has to be <i>exactly</i> 256-bit long, while 'Plaintext' <i>can</i> exceed—but
+                            NEVER be shorter than—the same amount. These values must be encoded in either <strong>binary</strong> or
+                            <strong>hexadecimal</strong>: always select this choice in the corresponding dropdown menu of
+                            both fields before trying to 'Send' any data. Finally, the 'Clear' button just erases the whole input form for convenience.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="bg-light rounded border">
+                    <div class="row d-flex justify-content-center">
+                        <div class="row d-flex justify-content-center text-center pt-2">
+                            <h5>RTL Sources</h5>
+                        </div>
+                        <div class="row d-flex justify-content-center ps-4 pb-3">
+                            <ul class="list-group pt-1 justify-content-center">
+                                <li class="list-group-item list-group-item-success">
+                                    LFSR.vhd
+                                    <a href="./previews/LFSR.vhd">
+                                        <button type="button" class="btn btn-outline-success  float-end mx-1">
+                                            <i class="bi bi-download"></i>
+                                        </button>
+                                    </a>
+                                    <button type="button" class="btn btn-outline-success  float-end mx-1"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-file-name="LFSR">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </li>
+                                <li class="list-group-item list-group-item-success">
+                                    ALFSR.vhd
+                                    <a href="./previews/ALFSR.vhd">
+                                        <button type="button" class="btn btn-outline-success float-end mx-1">
+                                            <i class="bi bi-download"></i>
+                                        </button>
+                                    </a>
+                                    <button type="button" class="btn btn-outline-success float-end mx-1"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-file-name="ALFSR">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </li>
+                                <li class="list-group-item list-group-item-success">
+                                    FA.vhd
+                                    <a href="./previews/FA.vhd">
+                                        <button type="button" class="btn btn-outline-success float-end mx-1">
+                                            <i class="bi bi-download"></i>
+                                        </button>
+                                    </a>
+                                    <button type="button" class="btn btn-outline-success float-end mx-1"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-file-name="FA">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </li>
+                                <li class="list-group-item list-group-item-success">
+                                    EDGE.vhd
+                                    <a href="./previews/EDGE.vhd">
+                                        <button type="button" class="btn btn-outline-success float-end mx-1">
+                                            <i class="bi bi-download"></i>
+                                        </button>
+                                    </a>
+                                    <button type="button" class="btn btn-outline-success float-end mx-1"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-file-name="EDGE">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </li>
+                                <li class="list-group-item list-group-item-success font-weight-bold">
+                                    NET.vhd
+                                    <a href="./previews/NET.vhd">
+                                        <button type="button" class="btn btn-outline-success float-end mx-1">
+                                            <i class="bi bi-download"></i>
+                                        </button>
+                                    </a>
+                                    <button type="button" class="btn btn-outline-success float-end mx-1"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-file-name="NET">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </li>
+                                <li class="list-group-item list-group-item-success">
+                                    <strong>BlockCipher.vhd</strong>
+                                    <a href="./previews/BlockCipher.vhd">
+                                        <button type="button" class="btn btn-outline-success  float-end mx-1">
+                                            <i class="bi bi-download"></i>
+                                        </button>
+                                    </a>
+                                    <button type="button" class="btn btn-outline-success float-end mx-1"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                        data-bs-file-name="BlockCipher">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-center pt-3 mt-2">
+            <div class="col-6">
+                <div class="container bg-light rounded border">
+                    <div class="row d-flex justify-content-center text-center pt-2">
+                        <h5>Top-Level Inputs</h5>
+                    </div>
+                    <div class="row ">
+                        <form action="" method="post">
+                            <div class="input-group mb-2">
+                                <!-- label -->
+                                <span id="label-seed" class="input-group-text">Seed</span>
+                                <!-- text input -->
+                                <textarea id="input-seed" onkeyup="checkInputSeed()" name="seed" type="text"
+                                    class="form-control" placeholder="Initialization value…"
+                                    aria-describedby="label-seed" required
+                                    rows="1"></textarea>
+                                <!-- hidden format input -->
+                                <input type="text" id="input-seed-format" name="seedFormat" value="HEX"
+                                    class="visually-hidden">
+                                <!-- dropdown button -->
+                                <button id="btn-seed-format" class="btn btn-outline-secondary dropdown-toggle"
+                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">HEX</button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <div class="dropdown-item" href="" onclick="setSeedFormat('BIN')">BIN</div>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-item" href="" onclick="setSeedFormat('HEX')">HEX</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="input-group mb-2">
+                                <!-- label -->
+                                <span id="label-plaintext" class="input-group-text">Plaintext</span>
+                                <!-- text input -->
+                                <textarea id="input-plaintext" onkeyup="checkInputPlaintext()" name="message"
+                                    type="text" class="form-control" placeholder="Write a message…"
+                                    aria-describedby="label-plaintext" required
+                                    rows="1"></textarea>
+                                <!-- hidden format input -->
+                                <input type="text" id="input-plaintext-format" name="messageFormat" value="HEX"
+                                    class="visually-hidden">
+                                <!-- dropdown button -->
+                                <button id="btn-plaintext-format" class="btn btn-outline-secondary dropdown-toggle"
+                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">HEX</button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <div class="dropdown-item" href="" onclick="setPlaintextFormat('BIN')">BIN</div>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-item" href="" onclick="setPlaintextFormat('HEX')">HEX</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- <button id="send-button" type="submit button" class="btn btn-outline-success float-start me-2" disabled>Send</button> -->
+                            <button id="send-button" type="button" onclick="updateOutputs()"
+                                class="btn btn-outline-success float-start me-2" disabled>Send</button>
+                            
+                            <!-- Clear all fields with the following: -->
+                            <button type="button" class="btn btn-secondary float-end"
+                                onclick="clearFields()">Clear</button>
+                        </form>
+                    </div>
+                </div>
+                <br>
+                <div class="container bg-light rounded border">
+                    <div class="row d-flex justify-content-center text-center pt-2">
+                        <h5>Top-Level Output</h5>
+                    </div>
+                    <div class="row ">
+                        <form action="ciphe" method="get">
+                            <div class="input-group mb-2">
+                                <span id="label-CP" class="input-group-text">Ciphertext</span>
+                                <textarea id="output-CP" name="message" type="text" class="form-control"
+                                    aria-describedby="label-CP" value="" readonly rows="1"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="container bg-light rounded border">
+                    <div class="row d-flex justify-content-center text-center pt-2">
+                        <h5>Internal Debug Flags</h5>
+                    </div>
+                    <div class="row ">
+                        <form action="" method="">
+                            <div class="input-group mb-2">
+                                <span id="label-LFSR" class="input-group-text">LFSR_OUT</span>
+                                <textarea id="output-LFSR" name="message" type="text" class="form-control"
+                                    aria-describedby="label-LFSR" value="" readonly rows="1"></textarea>
+                            </div>
+                            <div class="input-group mb-2">
+                                <span id="label-ALFSR" class="input-group-text">ALFSR_OUT</span>
+                                <textarea id="output-ALFSR" name="message" type="text" class="form-control"
+                                    aria-describedby="label-ALFSR" value="" readonly rows="1"></textarea>
+                            </div>
+                            <div class="input-group mb-2">
+                                <span id="label-FA" class="input-group-text">FA_OUT</span>
+                                <textarea id="output-FA" name="message" type="text" class="form-control"
+                                    aria-describedby="label-FA" value="" readonly rows="1"></textarea>
+                            </div>
+                            <div class="input-group mb-2">
+                                <span id="label-EDGE" class="input-group-text">EDGE_OUT</span>
+                                <textarea id="output-EDGE" name="message" type="text" class="form-control"
+                                    aria-describedby="label-EDGE" value="" readonly rows="1"></textarea>
+                            </div>
+                            <div class="input-group mb-2">
+                                <span id="label-NET" class="input-group-text">NET_OUT</span>
+                                <textarea id="output-NET" name="message" type="text" class="form-control"
+                                    aria-describedby="label-NET" value="" readonly rows="1"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-3">
+        <div class="row d-flex pt-2">
+            <div class="bg-light border">
+                <p class="text-danger font-monospace fw-light pt-2">
+                    Design of new Hardware-based Capture-the-Flag Challenges
+                    <br><br>
+                    Project Track 4 @ Cybersecurity for Embedded Systems [01UDNOV]
+                    <br>
+                    Made by: Fulvio Castello, Eugenio Ressa, Umberto Toppino
+
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal to preview VHDL code -->
+    <div class="modal modal-xl fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Source</h5>
+                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                </div>
+                <div class="modal-body embed-responsive">
+                    <iframe width="100%" height="100%" class="embed-responsive-item custom-content" src="">
+                    </iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Empties input fields on page load
+        function initPage(){
+            clearFields();
+            btnSeedFormat.textContent = 'HEX';
+            inputSeedFormat.value = 'HEX';
+            btnPlaintextFormat.textContent = 'HEX';
+            inputPlaintextFormat.value = 'HEX';
+        }
+    </script>
+
+    <script>
+        // Ajax POST call
+        function updateOutputs() {
+
+            var myObject = {
+                "seed": inputSeed.value,
+                "seedFormat": inputSeedFormat.value,
+                "message": inputPlaintext.value,
+                "messageFormat": inputPlaintextFormat.value
+            };
+
+            // Check special combinations
+            var seedErr1 = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111";
+            var seedErr2 = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+            var seedErr3 = "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
+            var seedErr4 = "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+            var seedErr5 = "0000000000000000000000000000000000000000000000000000000000000000";
+            const hexAlphabet_no0 = /[1-9a-fA-F]+/;
+
+            if (inputSeed.value == seedErr1 || inputSeed.value == seedErr2 || inputSeed.value == seedErr3 ||
+                inputSeed.value == seedErr4 || inputSeed.value == seedErr5 || !inputPlaintext.value.match(hexAlphabet_no0)) {
+                outputTimeout();
+            } else {
+                outputCP.textContent = "";
+                outputLFSR.textContent = "";
+                outputALFSR.textContent = "";
+                outputFA.textContent = "";
+                outputEDGE.textContent = "";
+                outputNET.textContent = "";
+                $.ajax({
+                    type: 'POST',
+                    url: "ciphe2",
+                    contentType: "application/json",
+                    processData: false,
+                    data: JSON.stringify(myObject),
+                    success: function (jsonResponse) {
+                        // Update output fields
+                        var jsonData = JSON.parse(jsonResponse);
+                        //alert(jsonData.output_CP)
+
+                        outputCP.classList.remove("text-danger");
+                        outputLFSR.classList.remove("text-danger");
+                        outputALFSR.classList.remove("text-danger");
+                        outputFA.classList.remove("text-danger");
+                        outputEDGE.classList.remove("text-danger");
+                        outputNET.classList.remove("text-danger");
+
+                        outputCP.textContent = jsonData["output_CP"];
+                        outputLFSR.textContent = jsonData["output_LFSR"];
+                        outputALFSR.textContent = jsonData["output_ALFSR"];
+                        outputFA.textContent = jsonData["output_FA"];
+                        outputEDGE.textContent = jsonData["output_EDGE"];
+                        outputNET.textContent = jsonData["output_NET"];
+
+                        for (let i = 0; i < tx.length; i++) {
+                            tx[i].style.height = "auto";
+                            tx[i].style.height = (tx[i].scrollHeight) + "px";
+                        }
+
+                    },
+                    dataType: "text"
+                });
+            }
+
+            for (let i = 0; i < tx.length; i++) {
+                tx[i].style.height = "auto";
+                tx[i].style.height = (tx[i].scrollHeight) + "px";
+            }
+
+        }
+
+        function outputTimeout() {
+
+            outputCP.classList.add("text-danger");
+            outputLFSR.classList.add("text-danger");
+            outputALFSR.classList.add("text-danger");
+            outputFA.classList.add("text-danger");
+            outputEDGE.classList.add("text-danger");
+            outputNET.classList.add("text-danger");
+
+            outputCP.textContent = "PROCESS TIMEOUT"
+            outputLFSR.textContent = "PROCESS TIMEOUT";
+            outputALFSR.textContent = "PROCESS TIMEOUT";
+            outputFA.textContent = "PROCESS TIMEOUT";
+            outputEDGE.textContent = "PROCESS TIMEOUT";
+            outputNET.textContent = "PROCESS TIMEOUT";
+        }
+    </script>
+
+    <script>
+        // Clear Button: clear all fields
+        const outputCP = document.getElementById('output-CP');
+        const outputLFSR = document.getElementById('output-LFSR');
+        const outputALFSR = document.getElementById('output-ALFSR');
+        const outputFA = document.getElementById('output-FA');
+        const outputEDGE = document.getElementById('output-EDGE');
+        const outputNET = document.getElementById('output-NET');
+
+        function clearFields() {
+            // Clear seed
+            inputSeed.value = "";
+            inputSeed.classList.remove("is-invalid");
+            inputSeed.classList.remove("is-valid");
+            // Clear plaintext
+            inputPlaintext.value = "";
+            inputPlaintext.classList.remove("is-invalid");
+            inputPlaintext.classList.remove("is-valid");
+            // Disable Send
+            buttonSend.setAttribute("disabled", "");
+        }
+    </script>
+
+    <script>
+        // Script to change content of modal depending on button pressed
+
+        const exampleModal = document.getElementById('exampleModal');
+        exampleModal.addEventListener('show.bs.modal', event => {
+            // Button that triggered the modal
+            const button = event.relatedTarget
+
+            // Extract info from data-bs-* attributes
+            const fileName = button.getAttribute('data-bs-file-name')
+
+            // Update title.
+            const modalTitle = exampleModal.querySelector('.modal-title')
+            modalTitle.textContent = `Source - ${fileName}.vhd`
+
+            // Update body.
+            const modalBody = exampleModal.querySelector('.custom-content')
+            modalBody.src = './previews/' + fileName + '.html'
+        })
+    </script>
+
+    <script>
+        // Set format of input fields
+        const btnSeedFormat = document.getElementById("btn-seed-format");
+        const btnPlaintextFormat = document.getElementById("btn-plaintext-format");
+        const inputSeedFormat = document.getElementById("input-seed-format");
+        const inputPlaintextFormat = document.getElementById("input-plaintext-format");
+
+        function setSeedFormat(strFormat) {
+            btnSeedFormat.textContent = strFormat;
+            inputSeedFormat.value = strFormat;
+            checkInputSeed();
+        }
+        function setPlaintextFormat(strFormat) {
+            btnPlaintextFormat.textContent = strFormat;
+            inputPlaintextFormat.value = strFormat;
+            checkInputPlaintext();
+        }
+    </script>
+
+    <script>
+        // Auto resize textarea
+
+        const tx = document.getElementsByTagName("textarea");
+        for (let i = 0; i < tx.length; i++) {
+            tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+            tx[i].addEventListener("input", OnInput, false);
+        }
+
+        function OnInput() {
+            this.style.height = "auto";
+            this.style.height = (this.scrollHeight) + "px";
+        }
+    </script>
+
+    <script>
+        // Script to check length of input fields
+        const inputSeed = document.querySelector("#input-seed");
+        const inputPlaintext = document.querySelector("#input-plaintext");
+        const buttonSend = document.querySelector("#send-button");
+        const binAlphabet = /^[0-1]+$/;
+        const hexAlphabet = /^[0-9a-fA-F]+$/;
+
+        function checkInputSeed() {
+            var value = document.getElementById("input-seed").value;
+            var binLength = 256;                // If binary input, length is 256 chars
+            var hexLength = binLength / 4;      // If hex input, length is 64 chars
+
+            if (inputSeedFormat.value == "BIN") {
+                if (value.length == binLength) {
+                    if (value.match(binAlphabet)) {
+                        inputSeed.classList.add("is-valid");
+                        inputSeed.classList.remove("is-invalid");
+                    } else {
+                        inputSeed.classList.remove("is-valid");
+                        inputSeed.classList.add("is-invalid");
+                    }
+                } else {
+                    inputSeed.classList.remove("is-valid");
+                    inputSeed.classList.add("is-invalid");
+                }
+            } else {
+                if (value.length == hexLength) {
+                    if (value.match(hexAlphabet)) {
+                        inputSeed.classList.add("is-valid");
+                        inputSeed.classList.remove("is-invalid");
+                    } else {
+                        inputSeed.classList.remove("is-valid");
+                        inputSeed.classList.add("is-invalid");
+                    }
+                } else {
+                    inputSeed.classList.remove("is-valid");
+                    inputSeed.classList.add("is-invalid");
+                }
+            }
+
+            if (inputSeed.classList.contains("is-valid") && inputPlaintext.classList.contains("is-valid")) {
+                buttonSend.removeAttribute("disabled");
+            } else {
+                buttonSend.setAttribute("disabled", "");
+            }
+        }
+
+        function checkInputPlaintext() {
+            var value = document.getElementById("input-plaintext").value;
+            var binLength = 256;                // If binary input, length is 256 chars
+            var hexLength = binLength / 4;     // If hex input, length is 64 chars
+
+            if (inputPlaintextFormat.value == "BIN") {
+                if (value.length >= binLength) {
+                    if (value.match(binAlphabet)) {
+                        inputPlaintext.classList.add("is-valid");
+                        inputPlaintext.classList.remove("is-invalid");
+                    } else {
+                        inputPlaintext.classList.remove("is-valid");
+                        inputPlaintext.classList.add("is-invalid");
+                    }
+                } else {
+                    inputPlaintext.classList.remove("is-valid");
+                    inputPlaintext.classList.add("is-invalid");
+                }
+            } else {
+                if (value.length >= hexLength) {
+                    if (value.match(hexAlphabet)) {
+                        inputPlaintext.classList.add("is-valid");
+                        inputPlaintext.classList.remove("is-invalid");
+                    } else {
+                        inputPlaintext.classList.remove("is-valid");
+                        inputPlaintext.classList.add("is-invalid");
+                    }
+                } else {
+                    inputPlaintext.classList.remove("is-valid");
+                    inputPlaintext.classList.add("is-invalid");
+                }
+            }
+
+            if (inputSeed.classList.contains("is-valid") && inputPlaintext.classList.contains("is-valid")) {
+                buttonSend.removeAttribute("disabled");
+            } else {
+                buttonSend.setAttribute("disabled", "");
+            }
+        }
+
+        function ciphe() {
+            return "prova success"
+        }
+    </script>
+
+</body>
+
+</html>

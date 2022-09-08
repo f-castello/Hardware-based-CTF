@@ -1,0 +1,221 @@
+
+*** Running vivado
+    with args -log design_1_myip_0_11.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_myip_0_11.tcl
+
+
+
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source design_1_myip_0_11.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/BlockCipher/ip_repo/myip_1.0'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.2/data/ip'.
+Command: synth_design -top design_1_myip_0_11 -part xc7z020clg400-1 -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 924
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 1029.473 ; gain = 0.000
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'design_1_myip_0_11' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ip/design_1_myip_0_11/synth/design_1_myip_0_11.vhd:82]
+	Parameter C_S00_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S00_AXI_ADDR_WIDTH bound to: 7 - type: integer 
+INFO: [Synth 8-3491] module 'myip_v1_0' declared at 'c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/hdl/myip_v1_0.vhd:5' bound to instance 'U0' of component 'myip_v1_0' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ip/design_1_myip_0_11/synth/design_1_myip_0_11.vhd:148]
+INFO: [Synth 8-638] synthesizing module 'myip_v1_0' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/hdl/myip_v1_0.vhd:49]
+	Parameter C_S00_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S00_AXI_ADDR_WIDTH bound to: 7 - type: integer 
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 7 - type: integer 
+INFO: [Synth 8-3491] module 'myip_v1_0_S00_AXI' declared at 'c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/hdl/myip_v1_0_S00_AXI.vhd:5' bound to instance 'myip_v1_0_S00_AXI_inst' of component 'myip_v1_0_S00_AXI' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/hdl/myip_v1_0.vhd:85]
+INFO: [Synth 8-638] synthesizing module 'myip_v1_0_S00_AXI' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/hdl/myip_v1_0_S00_AXI.vhd:86]
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 7 - type: integer 
+INFO: [Synth 8-3491] module 'BlockCipher' declared at 'c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/BlockCipher.vhd:4' bound to instance 'BLOCK_CIPHER_COMP' of component 'BlockCipher' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/hdl/myip_v1_0_S00_AXI.vhd:644]
+INFO: [Synth 8-638] synthesizing module 'BlockCipher' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/BlockCipher.vhd:31]
+INFO: [Synth 8-3491] module 'LFSR' declared at 'c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/LFSR.vhd:5' bound to instance 'LFSR_COMP' of component 'LFSR' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/BlockCipher.vhd:79]
+INFO: [Synth 8-638] synthesizing module 'LFSR' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/LFSR.vhd:15]
+INFO: [Synth 8-256] done synthesizing module 'LFSR' (1#1) [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/LFSR.vhd:15]
+INFO: [Synth 8-3491] module 'ALFSR' declared at 'c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/ALFSR.vhd:4' bound to instance 'ALFSR_COMP' of component 'ALFSR' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/BlockCipher.vhd:81]
+INFO: [Synth 8-638] synthesizing module 'ALFSR' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/ALFSR.vhd:13]
+INFO: [Synth 8-256] done synthesizing module 'ALFSR' (2#1) [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/ALFSR.vhd:13]
+INFO: [Synth 8-3491] module 'FA' declared at 'c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/FA.vhd:4' bound to instance 'FA_COMP' of component 'FA' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/BlockCipher.vhd:83]
+INFO: [Synth 8-638] synthesizing module 'FA' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/FA.vhd:12]
+INFO: [Synth 8-256] done synthesizing module 'FA' (3#1) [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/FA.vhd:12]
+INFO: [Synth 8-3491] module 'EDGE' declared at 'c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/EDGE.vhd:5' bound to instance 'EDGE_COMP' of component 'EDGE' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/BlockCipher.vhd:85]
+INFO: [Synth 8-638] synthesizing module 'EDGE' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/EDGE.vhd:13]
+INFO: [Synth 8-256] done synthesizing module 'EDGE' (4#1) [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/EDGE.vhd:13]
+INFO: [Synth 8-3491] module 'NET' declared at 'c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/NET.vhd:4' bound to instance 'NET_COMP' of component 'NET' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/BlockCipher.vhd:87]
+INFO: [Synth 8-638] synthesizing module 'NET' [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/NET.vhd:14]
+INFO: [Synth 8-256] done synthesizing module 'NET' (5#1) [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/NET.vhd:14]
+INFO: [Synth 8-256] done synthesizing module 'BlockCipher' (6#1) [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/src/BlockCipher.vhd:31]
+INFO: [Synth 8-256] done synthesizing module 'myip_v1_0_S00_AXI' (7#1) [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/hdl/myip_v1_0_S00_AXI.vhd:86]
+INFO: [Synth 8-256] done synthesizing module 'myip_v1_0' (8#1) [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ipshared/8b0b/hdl/myip_v1_0.vhd:49]
+INFO: [Synth 8-256] done synthesizing module 'design_1_myip_0_11' (9#1) [c:/BlockCipher/project_1/project_1.gen/sources_1/bd/design_1/ip/design_1_myip_0_11/synth/design_1_myip_0_11.vhd:82]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 1072.918 ; gain = 43.445
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 1076.918 ; gain = 47.445
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 1076.918 ; gain = 47.445
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.964 . Memory (MB): peak = 1076.918 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1239.816 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.097 . Memory (MB): peak = 1243.855 ; gain = 4.039
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:36 ; elapsed = 00:00:35 . Memory (MB): peak = 1243.855 ; gain = 214.383
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:36 ; elapsed = 00:00:35 . Memory (MB): peak = 1243.855 ; gain = 214.383
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:51 ; elapsed = 00:01:20 . Memory (MB): peak = 1243.855 ; gain = 214.383
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:21 ; elapsed = 00:01:50 . Memory (MB): peak = 1243.855 ; gain = 214.383
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:01:21 ; elapsed = 00:01:51 . Memory (MB): peak = 1243.855 ; gain = 214.383
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:01:23 ; elapsed = 00:01:52 . Memory (MB): peak = 1243.855 ; gain = 214.383
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:01:29 ; elapsed = 00:01:59 . Memory (MB): peak = 1243.855 ; gain = 214.383
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:29 ; elapsed = 00:01:59 . Memory (MB): peak = 1243.855 ; gain = 214.383
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:30 ; elapsed = 00:01:59 . Memory (MB): peak = 1243.855 ; gain = 214.383
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:30 ; elapsed = 00:01:59 . Memory (MB): peak = 1243.855 ; gain = 214.383
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:30 ; elapsed = 00:02:00 . Memory (MB): peak = 1243.855 ; gain = 214.383
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:30 ; elapsed = 00:02:00 . Memory (MB): peak = 1243.855 ; gain = 214.383
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |CARRY4 |    66|
+|2     |LUT1   |     4|
+|3     |LUT2   |   261|
+|4     |LUT3   |   513|
+|5     |LUT4   |   267|
+|6     |LUT5   |    94|
+|7     |LUT6   |   142|
+|8     |MUXF7  |    64|
+|9     |FDRE   |  1540|
+|10    |FDSE   |     6|
++------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:30 ; elapsed = 00:02:00 . Memory (MB): peak = 1243.855 ; gain = 214.383
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:04 ; elapsed = 00:01:50 . Memory (MB): peak = 1243.855 ; gain = 47.445
+Synthesis Optimization Complete : Time (s): cpu = 00:01:30 ; elapsed = 00:02:01 . Memory (MB): peak = 1243.855 ; gain = 214.383
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.063 . Memory (MB): peak = 1243.855 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 130 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1243.855 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Common 17-83] Releasing license: Synthesis
+45 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:46 ; elapsed = 00:02:18 . Memory (MB): peak = 1243.855 ; gain = 214.383
+INFO: [Common 17-1381] The checkpoint 'C:/BlockCipher/project_1/project_1.runs/design_1_myip_0_11_synth_1/design_1_myip_0_11.dcp' has been generated.
+WARNING: [Common 17-576] 'use_project_ipc' is deprecated. This option is deprecated and no longer used.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP design_1_myip_0_11, cache-ID = 804a198f1460a223
+INFO: [Coretcl 2-1174] Renamed 6 cell refs.
+INFO: [Common 17-1381] The checkpoint 'C:/BlockCipher/project_1/project_1.runs/design_1_myip_0_11_synth_1/design_1_myip_0_11.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file design_1_myip_0_11_utilization_synth.rpt -pb design_1_myip_0_11_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Thu Jun 30 23:44:25 2022...

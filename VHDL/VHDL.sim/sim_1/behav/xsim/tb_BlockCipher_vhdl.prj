@@ -1,0 +1,12 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../VHDL.srcs/sources_1/new/ALFSR.vhd" \
+"../../../../VHDL.srcs/sources_1/new/BlockCipher.vhd" \
+"../../../../VHDL.srcs/sources_1/new/EDGE.vhd" \
+"../../../../VHDL.srcs/sources_1/new/FA.vhd" \
+"../../../../VHDL.srcs/sources_1/new/LFSR.vhd" \
+"../../../../VHDL.srcs/sources_1/new/NET.vhd" \
+"../../../../VHDL.srcs/sim_1/new/tb_BlockCipher.vhd" \
+
+# Do not sort compile order
+nosort

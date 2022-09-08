@@ -1,0 +1,18 @@
+\chapter{User Manual}
+\label{usermanual}
+The application has to be managed through a command line:
+\begin{enumerate}
+\item connect remotely via ssh: \begin{verbatim}ssh challenge@130.192.93.82\end{verbatim}
+\item insert the password---login credentials will have to be requested directly from the people managing the physical board
+\item after successful authentication, use the newly opened terminal
+\item get root privilegies: \begin{verbatim}sudo -i\end{verbatim}
+\item clone the ``PYNQ/'' directory inside the board (there are no specific requirements about the destination)
+\item install both \textbf{pynq} and \textbf{cherrypy} libraries (the latter needs Python 3.6 or above)
+\item navigate to ``PYNQ/UserInterface/''
+\item start the backend: \begin{verbatim}python3 web_server.py\end{verbatim}
+\item the challenge is now up and running at \url{http://130.192.93.82:8080/}.
+\end{enumerate}
+In case the logic design needs to be modified, a new bitstream will have to be generated accordingly.
+The resulting files will all have to be named ``design\_1'' (as detailed in \autoref{bitstream}) and to be pushed to the board again:
+\begin{verbatim}scp path/local/file challenge@130.192.93.82:PYNQ/Board_Files/gen\end{verbatim}
+where the destination was previously defined during step 5.

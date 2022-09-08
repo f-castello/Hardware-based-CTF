@@ -1,0 +1,29 @@
+
+<!-- saved from url=(0148)file:///D:/PoliTo/Magistrale/LM%20Secondo%20Anno/2%20Cybersecurity%20for%20Embedded%20Systems/2022/GitHub/Hardware-based-CTF/PYNQ/DeleteMe/test.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <!-- <script src="./run_prettify.js?skin=desert"></script>
+    <script src="./vhdl_ext.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="./FA_files/desert.css">
+
+
+
+    
+        </head><body><pre class="prettyprint lang-vhdl prettyprinted" style=""><span class="pln">LIBRARY IEEE</span><span class="pun">;</span><span class="pln">
+USE IEEE</span><span class="pun">.</span><span class="pln">std_logic_1164</span><span class="pun">.</span><span class="pln">ALL</span><span class="pun">;</span><span class="pln">
+
+ENTITY FA IS
+    PORT
+    </span><span class="pun">(</span><span class="pln">
+        A</span><span class="pun">,</span><span class="pln"> B</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Cin</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC</span><span class="pun">;</span><span class="pln">
+        S</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Cout</span><span class="pln">   </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC
+    </span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">END</span><span class="pln"> FA</span><span class="pun">;</span><span class="pln">
+
+ARCHITECTURE dataflow OF FA IS
+</span><span class="kwd">BEGIN</span><span class="pln">
+    S    </span><span class="pun">&lt;=</span><span class="pln"> A XOR B XOR </span><span class="typ">Cin</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">Cout</span><span class="pln"> </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">A AND B</span><span class="pun">)</span><span class="pln"> OR </span><span class="pun">(</span><span class="typ">Cin</span><span class="pln"> AND A</span><span class="pun">)</span><span class="pln"> OR </span><span class="pun">(</span><span class="typ">Cin</span><span class="pln"> AND B</span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">END</span><span class="pln"> dataflow</span><span class="pun">;</span><span class="pln">
+    </span></pre>
+
+</body></html>

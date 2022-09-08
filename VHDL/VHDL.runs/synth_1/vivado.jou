@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Fri Jul  1 00:55:19 2022
+# Process ID: 4684
+# Current directory: Z:/Documents/Embedded/CyberSec/Hardware-based-CTF/VHDL/VHDL.runs/synth_1
+# Command line: vivado.exe -log BlockCipher.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source BlockCipher.tcl
+# Log file: Z:/Documents/Embedded/CyberSec/Hardware-based-CTF/VHDL/VHDL.runs/synth_1/BlockCipher.vds
+# Journal file: Z:/Documents/Embedded/CyberSec/Hardware-based-CTF/VHDL/VHDL.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source BlockCipher.tcl -notrace

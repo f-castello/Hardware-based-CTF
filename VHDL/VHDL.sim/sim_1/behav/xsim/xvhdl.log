@@ -1,0 +1,14 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "Z:/Documents/Embedded/CyberSec/Hardware-based-CTF/VHDL/VHDL.srcs/sources_1/new/ALFSR.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'ALFSR'
+INFO: [VRFC 10-163] Analyzing VHDL file "Z:/Documents/Embedded/CyberSec/Hardware-based-CTF/VHDL/VHDL.srcs/sources_1/new/BlockCipher.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'BlockCipher'
+INFO: [VRFC 10-163] Analyzing VHDL file "Z:/Documents/Embedded/CyberSec/Hardware-based-CTF/VHDL/VHDL.srcs/sources_1/new/EDGE.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'EDGE'
+INFO: [VRFC 10-163] Analyzing VHDL file "Z:/Documents/Embedded/CyberSec/Hardware-based-CTF/VHDL/VHDL.srcs/sources_1/new/FA.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'FA'
+INFO: [VRFC 10-163] Analyzing VHDL file "Z:/Documents/Embedded/CyberSec/Hardware-based-CTF/VHDL/VHDL.srcs/sources_1/new/LFSR.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'LFSR'
+INFO: [VRFC 10-163] Analyzing VHDL file "Z:/Documents/Embedded/CyberSec/Hardware-based-CTF/VHDL/VHDL.srcs/sources_1/new/NET.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'NET'
+INFO: [VRFC 10-163] Analyzing VHDL file "Z:/Documents/Embedded/CyberSec/Hardware-based-CTF/VHDL/VHDL.srcs/sim_1/new/tb_BlockCipher.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'tb_BlockCipher'

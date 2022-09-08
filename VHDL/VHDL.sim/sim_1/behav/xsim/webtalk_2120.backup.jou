@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Fri Jul  1 00:58:48 2022
+# Process ID: 2120
+# Current directory: Z:/Documents/Embedded/CyberSec/Hardware-based-CTF/VHDL/VHDL.sim/sim_1/behav/xsim
+# Command line: wbtcv.exe -mode batch -source Z:/Documents/Embedded/CyberSec/Hardware-based-CTF/VHDL/VHDL.sim/sim_1/behav/xsim/xsim.dir/tb_BlockCipher_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: Z:/Documents/Embedded/CyberSec/Hardware-based-CTF/VHDL/VHDL.sim/sim_1/behav/xsim/webtalk.log
+# Journal file: Z:/Documents/Embedded/CyberSec/Hardware-based-CTF/VHDL/VHDL.sim/sim_1/behav/xsim\webtalk.jou
+#-----------------------------------------------------------
+source Z:/Documents/Embedded/CyberSec/Hardware-based-CTF/VHDL/VHDL.sim/sim_1/behav/xsim/xsim.dir/tb_BlockCipher_behav/webtalk/xsim_webtalk.tcl -notrace

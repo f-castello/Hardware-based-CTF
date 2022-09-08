@@ -1,0 +1,81 @@
+
+<!-- saved from url=(0148)file:///D:/PoliTo/Magistrale/LM%20Secondo%20Anno/2%20Cybersecurity%20for%20Embedded%20Systems/2022/GitHub/Hardware-based-CTF/PYNQ/DeleteMe/test.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <!-- <script src="./run_prettify.js?skin=desert"></script>
+    <script src="./vhdl_ext.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="./LFSR_files/desert.css">
+
+
+
+    
+        </head><body><pre class="prettyprint lang-vhdl prettyprinted" style=""><span class="pln">LIBRARY IEEE</span><span class="pun">;</span><span class="pln">
+USE IEEE</span><span class="pun">.</span><span class="pln">std_logic_1164</span><span class="pun">.</span><span class="pln">ALL</span><span class="pun">;</span><span class="pln">
+USE IEEE</span><span class="pun">.</span><span class="pln">numeric_std</span><span class="pun">.</span><span class="pln">ALL</span><span class="pun">;</span><span class="pln">
+
+ENTITY LFSR IS
+    PORT
+    </span><span class="pun">(</span><span class="pln">
+        S_in</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Clk</span><span class="pun">,</span><span class="pln"> </span><span class="typ">En</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Rst</span><span class="pun">,</span><span class="pln"> S_Load</span><span class="pun">,</span><span class="pln"> P_Load</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Count</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Fb_in</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC</span><span class="pun">;</span><span class="pln">
+        P_in                                             </span><span class="pun">:</span><span class="pln"> IN STD_LOGIC_VECTOR</span><span class="pun">(</span><span class="lit">255</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+        P_out                                            </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC_VECTOR</span><span class="pun">(</span><span class="lit">255</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+        S_out</span><span class="pun">,</span><span class="pln"> A_out</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Valid</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Fb_out</span><span class="pln">                      </span><span class="pun">:</span><span class="pln"> OUT STD_LOGIC
+    </span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">END</span><span class="pln"> LFSR</span><span class="pun">;</span><span class="pln">
+
+ARCHITECTURE behavioral OF LFSR IS
+    SIGNAL </span><span class="typ">CurrState</span><span class="pun">,</span><span class="pln"> </span><span class="typ">NextState</span><span class="pun">,</span><span class="pln"> </span><span class="typ">AltState</span><span class="pun">,</span><span class="pln"> </span><span class="typ">AltStatePrime</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> STD_LOGIC_VECTOR</span><span class="pun">(</span><span class="lit">255</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+    SIGNAL </span><span class="typ">Feedback</span><span class="pln">                                      </span><span class="pun">:</span><span class="pln"> STD_LOGIC</span><span class="pun">;</span><span class="pln">
+    SIGNAL cc_256                                        </span><span class="pun">:</span><span class="pln"> UNSIGNED</span><span class="pun">(</span><span class="lit">8</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+
+</span><span class="kwd">BEGIN</span><span class="pln">
+    PROCESS </span><span class="pun">(</span><span class="typ">Clk</span><span class="pun">)</span><span class="pln">
+        VARIABLE </span><span class="typ">Scr</span><span class="pun">,</span><span class="pln"> sh </span><span class="pun">:</span><span class="pln"> STD_LOGIC_VECTOR</span><span class="pun">(</span><span class="lit">255</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+        CONSTANT one     </span><span class="pun">:</span><span class="pln"> STD_LOGIC_VECTOR</span><span class="pun">(</span><span class="lit">255</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">)</span><span class="pln"> </span><span class="pun">:=</span><span class="pln"> </span><span class="pun">(</span><span class="lit">255</span><span class="pln"> DOWNTO </span><span class="lit">1</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln"> </span><span class="str">'1'</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">BEGIN</span><span class="pln">
+        IF RISING_EDGE</span><span class="pun">(</span><span class="typ">Clk</span><span class="pun">)</span><span class="pln"> THEN
+            IF </span><span class="pun">(</span><span class="typ">Rst</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="str">'1'</span><span class="pun">)</span><span class="pln"> THEN
+                </span><span class="typ">CurrState</span><span class="pln"> </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">OTHERS </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">);</span><span class="pln">
+                cc_256    </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">OTHERS </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">);</span><span class="pln">
+                </span><span class="typ">AltState</span><span class="pln">  </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">OTHERS </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">);</span><span class="pln">
+                </span><span class="typ">Scr</span><span class="pln"> </span><span class="pun">:=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">OTHERS       </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">);</span><span class="pln">
+                sh  </span><span class="pun">:=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">OTHERS       </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">);</span><span class="pln">
+            ELSIF </span><span class="pun">(</span><span class="typ">En</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="str">'1'</span><span class="pun">)</span><span class="pln"> THEN
+                IF </span><span class="pun">(</span><span class="pln">S_Load </span><span class="pun">=</span><span class="pln"> </span><span class="str">'1'</span><span class="pun">)</span><span class="pln"> THEN
+                    </span><span class="typ">CurrState</span><span class="pun">(</span><span class="lit">254</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="typ">CurrState</span><span class="pun">(</span><span class="lit">255</span><span class="pln"> DOWNTO </span><span class="lit">1</span><span class="pun">);</span><span class="pln">
+                    </span><span class="typ">CurrState</span><span class="pun">(</span><span class="lit">255</span><span class="pun">)</span><span class="pln">          </span><span class="pun">&lt;=</span><span class="pln"> S_in</span><span class="pun">;</span><span class="pln">
+                    IF </span><span class="pun">(</span><span class="typ">Count</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="str">'1'</span><span class="pun">)</span><span class="pln"> THEN
+                        cc_256 </span><span class="pun">&lt;=</span><span class="pln"> cc_256 </span><span class="pun">+</span><span class="pln"> </span><span class="lit">1</span><span class="pun">;</span><span class="pln">
+                    </span><span class="kwd">END</span><span class="pln"> IF</span><span class="pun">;</span><span class="pln">
+                ELSE
+                    </span><span class="typ">CurrState</span><span class="pln"> </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="typ">NextState</span><span class="pun">;</span><span class="pln">
+                </span><span class="kwd">END</span><span class="pln"> IF</span><span class="pun">;</span><span class="pln">
+                IF </span><span class="pun">(</span><span class="pln">P_Load </span><span class="pun">=</span><span class="pln"> </span><span class="str">'1'</span><span class="pun">)</span><span class="pln"> THEN
+                    FOR i IN P_in</span><span class="str">'RANGE</span><span class="pln"> LOOP
+                        IF </span><span class="pun">(</span><span class="pln">P_in</span><span class="pun">(</span><span class="pln">i</span><span class="pun">)</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">)</span><span class="pln"> THEN
+                            sh  </span><span class="pun">:=</span><span class="pln"> STD_LOGIC_VECTOR</span><span class="pun">(</span><span class="pln">SHIFT_LEFT</span><span class="pun">(</span><span class="pln">UNSIGNED</span><span class="pun">(</span><span class="pln">one</span><span class="pun">),</span><span class="pln"> P_in</span><span class="str">'HIGH</span><span class="pln"> </span><span class="pun">-</span><span class="pln"> i</span><span class="pun">));</span><span class="pln">
+                            </span><span class="typ">Scr</span><span class="pln"> </span><span class="pun">:=</span><span class="pln"> </span><span class="typ">Scr</span><span class="pln"> OR sh</span><span class="pun">;</span><span class="pln">
+                        </span><span class="kwd">END</span><span class="pln"> IF</span><span class="pun">;</span><span class="pln">
+                    </span><span class="kwd">END</span><span class="pln"> LOOP</span><span class="pun">;</span><span class="pln">
+                    </span><span class="typ">AltState</span><span class="pln"> </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="typ">Scr</span><span class="pun">;</span><span class="pln">
+                ELSE
+                    </span><span class="typ">AltState</span><span class="pln"> </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="typ">AltStatePrime</span><span class="pun">;</span><span class="pln">
+                </span><span class="kwd">END</span><span class="pln"> IF</span><span class="pun">;</span><span class="pln">
+            </span><span class="kwd">END</span><span class="pln"> IF</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">END</span><span class="pln"> IF</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">END</span><span class="pln"> PROCESS</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="typ">Feedback</span><span class="pln">      </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="typ">CurrState</span><span class="pun">(</span><span class="lit">255</span><span class="pun">)</span><span class="pln"> XOR </span><span class="typ">CurrState</span><span class="pun">(</span><span class="lit">203</span><span class="pun">);</span><span class="pln">
+    </span><span class="typ">NextState</span><span class="pln">     </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="typ">Feedback</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln"> </span><span class="typ">CurrState</span><span class="pun">(</span><span class="lit">255</span><span class="pln"> DOWNTO </span><span class="lit">1</span><span class="pun">);</span><span class="pln">
+    </span><span class="typ">AltStatePrime</span><span class="pln"> </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="typ">AltState</span><span class="pun">(</span><span class="lit">254</span><span class="pln"> DOWNTO </span><span class="lit">0</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln"> </span><span class="pun">(</span><span class="pln">NOT </span><span class="typ">Fb_in</span><span class="pun">);</span><span class="pln">
+
+    S_out </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="typ">CurrState</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+    A_out </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="typ">AltState</span><span class="pun">(</span><span class="lit">255</span><span class="pun">);</span><span class="pln">
+    </span><span class="typ">Valid</span><span class="pln"> </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="str">'1'</span><span class="pln"> WHEN cc_256</span><span class="pun">(</span><span class="lit">8</span><span class="pun">)</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="str">'1'</span><span class="pln"> AND </span><span class="typ">CurrState</span><span class="pln"> </span><span class="pun">/=</span><span class="pln"> </span><span class="pun">(</span><span class="typ">CurrState</span><span class="str">'RANGE</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">)</span><span class="pln"> ELSE
+        </span><span class="str">'0'</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="typ">Fb_out</span><span class="pln"> </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="typ">Feedback</span><span class="pun">;</span><span class="pln">
+    P_out  </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="typ">AltState</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">END</span><span class="pln"> behavioral</span><span class="pun">;</span><span class="pln">
+    </span></pre>
+
+</body></html>

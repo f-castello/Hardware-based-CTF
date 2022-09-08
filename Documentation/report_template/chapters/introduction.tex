@@ -1,0 +1,14 @@
+\chapter{Introduction}
+This project consisted in the creation of a brand new Capture-The-Flag Challenge, based on a Block Cipher design which can be made accessible to the participants by means of a web interface.
+Each contestant needs to test such device in order to gather information about its behavior, and has the possibility of analyzing the source code used to implement its architecture.
+Of course, the player has to possess an adequate level of experience in terms of digital design, whilst also displaying a sufficient understanding of the key concepts of hardware security.
+This event is thus conceived as an individual challenge, in which a specific flag (or equally, a brief textual description of the related vulnerability) has to be retrieved directly from the examination of platform itself, with no interaction among the individual contestants.
+
+The main issue to be dealt with was represented by the way in which the whole application could actually be made available to the end user.
+To that regard, the low-level logic description of the circuit was implemented on a physical board in order to be accessed remotely, so that each player can easily interact with it by means of a simple and effective GUI on any common browser.
+Once the correct combination of inputs is found, the competitor has to be able to detect the exceptional event by observing the output signals and report it to the organizers, so that victory in the game can actually be announced.
+
+The remainder of the document is organized as follows. In \autoref{Chapter2}, the reader is introduced to the world of CTF challenges; in \autoref{Chapter3}, a generic description of the application as a whole is reported;
+in \autoref{Chapter4}, the previously mentioned concepts are very much expanded on, in such a way that the reader can appreciate all the technicalities and the motifs behind the adopted approach;
+in \autoref{Chapter5}, the current state of the project is put into perspective with what was initially presented, while some further possible milestones are proposed as well; in \autoref{Chapter6}, a very quick recap of the whole work is provided;
+in \autoref{usermanual}, the reader is instructed on how to recreate a demo of this application; in \autoref{api}, there is a short explanation on how the internal API can be used to communicate with the challenge from the outside.
